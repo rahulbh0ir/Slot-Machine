@@ -1,6 +1,40 @@
+import random
+
 TOTAL_LINES = 3
 MIN_BET = 1
 MAX_BET = 100
+
+ROWS = 4
+COLS = 3
+
+symbols_list = {
+   "🍇" : 2,
+   "🧁" : 4,
+   "🍌" : 6,
+   "🍭" : 8 
+}
+
+
+def get_symbols(row, cols, symbols):
+   all_symbols = []
+   for a, b in symbols.items():
+      for _ in range(b):
+         all_symbols.append(a)
+   
+   columns = []
+
+   for _ in range(cols):
+      column = []
+      current_symbols = all_symbols[:]
+      
+      for _ in range(row):
+         value = random.choice(current_symbols)
+         current_symbols.remove(value)
+         column.append(value)
+      
+      columns.append(column)
+
+   return columns
 
 
 def deposit():
@@ -49,18 +83,20 @@ def get_bet():
 
 
 def main():
-   balance = deposit()
-   lines = get_lines()
+   # balance = deposit()
+   # lines = get_lines()
 
-   while True:
-      bet = get_bet()
-      total_bet = bet * lines
+   # while True:
+   #    bet = get_bet()
+   #    total_bet = bet * lines
 
-      if total_bet > balance:
-         print(f"You do not have ${total_bet} to place a bet, your current balance is ${balance} !")
-      else:
-         break
+   #    if total_bet > balance:
+   #       print(f"You do not have ${total_bet} to place a bet, your current balance is ${balance} !")
+   #    else:
+   #       break
 
-   print(f"You are betting ${bet} on {lines} lines. Your total bet is ${total_bet}")
+   # print(f"You are betting ${bet} on {lines} lines. Your total bet is ${total_bet}")
+   get = get_symbols(ROWS, COLS, symbols_list)
+   print(get)
 
 main()
