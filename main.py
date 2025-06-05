@@ -15,7 +15,7 @@ symbols_list = {
 }
 
 
-def get_symbols(rows, cols, symbols):
+def get_slot_spin(rows, cols, symbols):
    all_symbols = []
    for a, b in symbols.items():
       for _ in range(b):
@@ -29,11 +29,20 @@ def get_symbols(rows, cols, symbols):
          value = random.choice(current_symbols)
          current_symbols.remove(value)
          column.append(value)
-         
+
       columns.append(column)
 
    return columns
 
+
+def print_slot(columns):
+   for row in range(len(columns[0])):
+      for i, col in enumerate(columns):
+         if i != len(columns) - 1:
+            print(col[row], end=" | ")
+         else:
+            print(col[row], end="")
+      print()      
 
 def deposit():
    while True:
@@ -94,7 +103,8 @@ def main():
    #       break
 
    # print(f"You are betting ${bet} on {lines} lines. Your total bet is ${total_bet}")
-   get = get_symbols(ROWS, COLS, symbols_list)
-   print(get)
+   get = get_slot_spin(ROWS, COLS, symbols_list)
+   # print(get)
+   print_slot(get)
 
 main()
