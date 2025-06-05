@@ -4,7 +4,7 @@ TOTAL_LINES = 3
 MIN_BET = 1
 MAX_BET = 100
 
-ROWS = 4
+ROWS = 3
 COLS = 3
 
 symbols_list = {
@@ -15,23 +15,21 @@ symbols_list = {
 }
 
 
-def get_symbols(row, cols, symbols):
+def get_symbols(rows, cols, symbols):
    all_symbols = []
    for a, b in symbols.items():
       for _ in range(b):
          all_symbols.append(a)
-   
-   columns = []
 
+   columns = []
    for _ in range(cols):
       column = []
       current_symbols = all_symbols[:]
-      
-      for _ in range(row):
+      for _ in range(rows):
          value = random.choice(current_symbols)
          current_symbols.remove(value)
          column.append(value)
-      
+         
       columns.append(column)
 
    return columns
