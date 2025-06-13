@@ -15,6 +15,28 @@ symbols_list = {
 }
 
 
+symbols_values = {
+   "🍇" : 8,
+   "🧁" : 6,
+   "🍌" : 4,
+   "🍭" : 2 
+}
+
+
+def get_winnings(columns, lines, bet, values):
+   winnings = 0
+   for line in range(lines):
+      check = columns[0][line]
+      for col in columns:
+         check_symbol = col[line]
+         if check != check_symbol:
+            break
+      else:
+         winnings += values[check] * bet
+   
+   return winnings         
+
+
 def get_slot_spin(rows, cols, symbols):
    all_symbols = []
    for a, b in symbols.items():
@@ -88,23 +110,41 @@ def get_bet():
    return bet
 
 
+def game(balance):
+   lines = get_lines()
+
+   while True:
+      bet = get_bet()
+      total_bet = bet * lines
+
+      if total_bet > balance:
+         print(f"You do not have ${total_bet} to place a bet, your current balance is ${balance} !")
+      else:
+         break
+
+   print(f"You are betting ${bet} on {lines} lines. Your total bet is ${total_bet}")
+   get = get_slot_spin(ROWS, COLS, symbols_list)
+   print_slot(get)
+   
+   winning = get_winnings(get, lines, bet, symbols_values)
+   print(f"You won $ {winning} ")
+
+   return winning - total_bet
+
 
 def main():
-   # balance = deposit()
-   # lines = get_lines()
-
-   # while True:
-   #    bet = get_bet()
-   #    total_bet = bet * lines
-
-   #    if total_bet > balance:
-   #       print(f"You do not have ${total_bet} to place a bet, your current balance is ${balance} !")
-   #    else:
-   #       break
-
-   # print(f"You are betting ${bet} on {lines} lines. Your total bet is ${total_bet}")
-   get = get_slot_spin(ROWS, COLS, symbols_list)
-   # print(get)
-   print_slot(get)
+   balance = deposit()
+   while True:
+      print(f"Your current balance is ${balance}.")
+      play = input(f"Press enter to play (press 'q' to quit)  ")
+      if play == "q":
+         break
+      balance += game(balance)
+   
+   print()
+   print()
+   print(f"Thanks for playing !!! You left with ${balance}")
+   print()
+   print()
 
 main()
