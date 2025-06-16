@@ -95,7 +95,6 @@ def get_lines():
    return lines
 
 
-
 def get_bet():
    while True:
       bet = input(f"What would you like to bet on each lines?  $")
